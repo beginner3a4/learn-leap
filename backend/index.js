@@ -27,6 +27,11 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
+// Add a health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', environment: process.env.NODE_ENV });
+});
+
 // Multer setup for PDFs
 const upload = multer({
   storage: multer.diskStorage({

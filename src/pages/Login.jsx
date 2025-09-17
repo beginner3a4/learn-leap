@@ -40,8 +40,12 @@ function Login() {
         toast.success(`Welcome ${user.displayName}!`);
         navigate('/profile')
       } catch (err) {
-        toast.error(err.message);
-        console.error(err);
+        if (err.code === 'auth/popup-closed-by-user') {
+          toast.info('Login cancelled. Please try again if you want to sign in.');
+        } else {
+          toast.error('An error occurred during login. Please try again.');
+          console.error(err);
+        }
       }
     }
 
